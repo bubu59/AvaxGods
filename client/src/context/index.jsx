@@ -17,6 +17,8 @@ export const GlobalContextProvider = ({children}) => {
         type:'info',
         message: ''
     })
+    const [battleName, setBattleName] = useState('')
+
     //* Set the wallet address
     const updateCurrentWalletAddress = async () => {
         const accounts = await window?.ethereum?.request({
@@ -69,7 +71,14 @@ export const GlobalContextProvider = ({children}) => {
         }
     }, [showAlert])
     return (
-        <GlobalContext.Provider value={{contract, walletAddress, showAlert, setShowAlert}}>
+        <GlobalContext.Provider value={{
+            contract, 
+            walletAddress, 
+            showAlert, 
+            setShowAlert,
+            battleName,
+            setBattleName
+        }}>
             {children}
         </GlobalContext.Provider>   
     )

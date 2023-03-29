@@ -1,11 +1,34 @@
-import React from 'react'
-import {PageHOC} from '../components'
+import React, {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from '../styles'
+import { useGlobalContext } from '../context'
+import {PageHOC, CustomButton, CustomInput} from '../components'
 
 const CreateBattle = () => {
+  const navigate = useNavigate()
+  const {contract, battleName, setBattleName} = useGlobalContext()
+  const handleClick = () => {
+
+  }
   return (
-    <div>
-        <h1 className='text-white text-xl'>Hello from Create Battle!</h1>
-    </div>
+    <>
+      <div className='flex flex-col mb-5'>
+         <CustomInput
+          label='Battle'
+          placeholder='Enter your battle name'
+          value={battleName}
+          handleValueChange={setBattleName}
+         />
+
+         <CustomButton
+          title='Create battle'
+          handleClick={handleClick}
+          restStyles='mt-6'
+         />
+      </div>
+
+      <p className={styles.infoText} onClick={() => navigate('/join-battle')}>Or join existing battles!</p>
+    </>
   )
 }
 
