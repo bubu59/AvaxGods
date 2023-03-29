@@ -18,6 +18,11 @@ export const GlobalContextProvider = ({children}) => {
         message: ''
     })
     const [battleName, setBattleName] = useState('')
+    const [gameData, setGameData] = useState({
+        players: [],
+        pendingBattles: [],
+        activeBattle: null
+    })
 
     //* Set the wallet address
     const updateCurrentWalletAddress = async () => {
@@ -51,14 +56,13 @@ export const GlobalContextProvider = ({children}) => {
 
     useEffect(() => {
         console.log(contract)
-        if(contract) {
-            createEventListeners(
+        if(contract) 
+        createEventListeners(
                 navigate, 
                 provider, 
                 contract, 
                 walletAddress, 
-                setShowAlert
-        )}
+                setShowAlert)
     }, [])
 
     useEffect(() => {
@@ -70,6 +74,26 @@ export const GlobalContextProvider = ({children}) => {
             return () => clearTimeout(timer)
         }
     }, [showAlert])
+
+    //*Set game data 
+    useEffect(() => {
+        const fetchGameData = async () => {
+            const fetchedBattles = await contract.getAllBattles()
+            const pendingBattles = fetchedBattles.filter((battle) => battle.battleStatus === 0)
+            let activeBattle = null
+            fetchedBattles.forEach((battle) => {
+                if(battle.players.find((player) => player.toLowerCase() === walletAddress.toLowerCase())) {
+                    if(battle.winner.startsWith('0x00')) {
+                        activeBattle = battle
+                    }
+                }
+            })
+            setGameData({pendingBattles: pendingBattles.slice(1), activeBattle})
+            // console.log(fetchedBattles)
+        }
+        if (contract) fetchGameData()
+    }, [contract])
+
     return (
         <GlobalContext.Provider value={{
             contract, 
@@ -77,7 +101,8 @@ export const GlobalContextProvider = ({children}) => {
             showAlert, 
             setShowAlert,
             battleName,
-            setBattleName
+            setBattleName,
+            gameData
         }}>
             {children}
         </GlobalContext.Provider>   
