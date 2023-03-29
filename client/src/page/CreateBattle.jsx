@@ -4,7 +4,7 @@ import {PageHOC} from '../components'
 const CreateBattle = () => {
   return (
     <div>
-        <h1 className='text-white text-xl'>Hello from Home</h1>
+        <h1 className='text-white text-xl'>Hello from Create Battle!</h1>
     </div>
   )
 }

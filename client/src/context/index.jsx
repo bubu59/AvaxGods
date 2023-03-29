@@ -57,7 +57,7 @@ export const GlobalContextProvider = ({children}) => {
                 walletAddress, 
                 setShowAlert
         )}
-    }, [contract])
+    }, [])
 
     useEffect(() => {
         if(showAlert?.status) {
