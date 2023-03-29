@@ -3,15 +3,17 @@ import {ethers} from 'ethers'
 import Web3Modal from 'web3modal'
 import { useNavigate } from 'react-router-dom'
 import { ABI,ADDRESS } from '../contract'
+import { createEventListeners } from './createEventListeners'
 
 const GlobalContext = createContext()
 
 export const GlobalContextProvider = ({children}) => {
+    const navigate = useNavigate()
     const [walletAddress, setWalletAddress] = useState('')
     const [provider, setProvider] = useState('')
     const [contract, setContract] = useState('')
     const [showAlert, setShowAlert] = useState({
-        status: 'false',
+        status: false,
         type:'info',
         message: ''
     })
@@ -46,9 +48,21 @@ export const GlobalContextProvider = ({children}) => {
     }, [])
 
     useEffect(() => {
+        console.log(contract)
+        if(contract) {
+            createEventListeners(
+                navigate, 
+                provider, 
+                contract, 
+                walletAddress, 
+                setShowAlert
+        )}
+    }, [contract])
+
+    useEffect(() => {
         if(showAlert?.status) {
             const timer = setTimeout(() => {
-                setShowAlert({status: 'false', type:'info', message: ''})
+                setShowAlert({status: false, type:'info', message: ''})
             }, [5000])
 
             return () => clearTimeout(timer)

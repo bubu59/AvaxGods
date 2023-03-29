@@ -13,18 +13,17 @@ const Home = () => {
       if(!playerExists) {
         await contract.registerPlayer(playerName, playerName)
         setShowAlert({
-          status: 'true',
+          status: true,
           type: 'info',
           message: `${playerName} is being summoned!`
         })
       }
     }catch(error){
       setShowAlert({
-        status: 'true',
-        type: 'error',
-        message: error.message
+        status: true,
+        type: 'failure',
+        message: "Something went wrong!"
       })
-      alert(error)
     }
   }
   return (
