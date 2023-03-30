@@ -57,16 +57,17 @@ export const GlobalContextProvider = ({children}) => {
 
     useEffect(() => {
         console.log(contract)
-        if(contract) 
-        createEventListeners(
+        if(contract) {
+        createEventListeners({
             navigate, 
             provider, 
             contract, 
             walletAddress, 
             setShowAlert,
             setUpdateGameData
-        )
-    }, [])
+        })
+        }
+    }, [contract])
 
     useEffect(() => {
         if(showAlert?.status) {

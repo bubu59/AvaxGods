@@ -38,9 +38,8 @@ const Home = () => {
         navigate('/create-battle')
       } 
     }
-    if(contract) {
-      checkForPlayerToken()
-    }
+    if(contract) checkForPlayerToken()
+
   }, [contract])
   
   return (
