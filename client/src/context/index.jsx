@@ -23,6 +23,7 @@ export const GlobalContextProvider = ({children}) => {
         pendingBattles: [],
         activeBattle: null
     })
+    const [updateGameData, setUpdateGameData] = useState(0)
 
     //* Set the wallet address
     const updateCurrentWalletAddress = async () => {
@@ -58,11 +59,13 @@ export const GlobalContextProvider = ({children}) => {
         console.log(contract)
         if(contract) 
         createEventListeners(
-                navigate, 
-                provider, 
-                contract, 
-                walletAddress, 
-                setShowAlert)
+            navigate, 
+            provider, 
+            contract, 
+            walletAddress, 
+            setShowAlert,
+            setUpdateGameData
+        )
     }, [])
 
     useEffect(() => {
@@ -92,10 +95,10 @@ export const GlobalContextProvider = ({children}) => {
             // console.log(fetchedBattles)
         }
         if (contract) fetchGameData()
-    }, [contract])
+    }, [contract, updateGameData])
 
     return (
-        <GlobalContext.Provider value={{
+        <GlobalContext.Provider value={{ 
             contract, 
             walletAddress, 
             showAlert, 
