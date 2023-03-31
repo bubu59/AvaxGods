@@ -43,7 +43,7 @@ const Battle = () => {
                 setPlayer02({...player02, att: 'X', def: 'X', health: p2H, mana: p2M })
 
             }catch(error){
-                console.log(error)
+                setErrorMessage(error)
             }
         }
 

@@ -6,7 +6,7 @@ import styles from '../styles'
 
 const JoinBattle = () => {
   const navigte = useNavigate()
-  const {contract, gameData, setShowAlert, setBattleName, walletAddress} = useGlobalContext()
+  const {contract, gameData, setShowAlert, setBattleName, walletAddress, setErrorMessage } = useGlobalContext()
   const handleClick = async (battleName) => {
     setBattleName(battleName)
 
@@ -19,7 +19,7 @@ const JoinBattle = () => {
         message: `Joining ${battleName}`
       })
     }catch(error){
-      console.log(error)
+      setErrorMessage(error)
     }
   }
   return (

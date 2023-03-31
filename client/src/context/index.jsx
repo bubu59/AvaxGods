@@ -109,8 +109,8 @@ export const GlobalContextProvider = ({children}) => {
     //* Handle error messages
     useEffect(() => {
         if(errorMessage) {
-            const parsedErrorMessage = errorMessage?.reason?.slice('execution reverted : '.length).slice(0,-1)
-
+            const parsedErrorMessage = errorMessage?.data?.message.slice('execution reverted: '.length).slice(0,-1)
+            // slice('execution reverted : '.length).slice(0,-1)
             if(parsedErrorMessage) {
                 setShowAlert({
                     status: true,

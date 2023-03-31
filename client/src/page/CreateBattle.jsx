@@ -6,7 +6,7 @@ import { PageHOC, CustomButton, CustomInput, GameLoad } from '../components'
 
 const CreateBattle = () => {
   const navigate = useNavigate()
-  const {contract, battleName, setBattleName, gameData} = useGlobalContext()
+  const {contract, battleName, setBattleName, gameData, setErrorMessage} = useGlobalContext()
   const [waitBattle, setWaitBattle] = useState(false)
 
   //* Checks for account battleStatus
@@ -27,7 +27,7 @@ const CreateBattle = () => {
       await contract.createBattle(battleName)
       setWaitBattle(true)
     }catch(error){
-      console.log(error)
+      setErrorMessage(error)
     }
   }
 
