@@ -159,7 +159,8 @@ export const GlobalContextProvider = ({children}) => {
             errorMessage,
             setErrorMessage,
             player01Ref,
-            player02Ref
+            player02Ref,
+            updateCurrentWalletAddress
         }}>
             {children}
         </GlobalContext.Provider>   

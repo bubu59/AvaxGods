@@ -5,13 +5,22 @@ import { PageHOC, CustomButton } from '../components'
 import styles from '../styles'
 
 const JoinBattle = () => {
-  const navigte = useNavigate()
+  const navigate = useNavigate()
   const {contract, gameData, setShowAlert, setBattleName, walletAddress, setErrorMessage } = useGlobalContext()
+
+  useEffect(() => {
+    if(gameData?.activeBattle?.battleStatus === 1) {
+      navigate(`/battle/${gameData.activeBattle.name}`)
+    }
+  }, [gameData])
+
   const handleClick = async (battleName) => {
     setBattleName(battleName)
 
     try{
-      await contract.joinBattle(battleName)
+      await contract.joinBattle(battleName, {
+        gameLimit: 200000
+    })
 
       setShowAlert({ 
         status: true,
@@ -45,7 +54,7 @@ const JoinBattle = () => {
         }
       </div>
 
-      <p className={styles.infoText} onClick={() => navigte('/create-battle')}>Or create a new battle!</p>
+      <p className={styles.infoText} onClick={() => navigate('/create-battle')}>Or create a new battle!</p>
     </>
   )
 }

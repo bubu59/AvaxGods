@@ -24,7 +24,9 @@ const CreateBattle = () => {
     }
 
     try{
-      await contract.createBattle(battleName)
+      await contract.createBattle(battleName, {
+        gameLimit: 200000
+    })
       setWaitBattle(true)
     }catch(error){
       setErrorMessage(error)
