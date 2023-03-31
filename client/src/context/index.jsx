@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useRef, useState} from 'react'
 import {ethers} from 'ethers'
-import Web3Modal from 'web3modal'
+import Web3Modal, { local } from 'web3modal'
 import { useNavigate } from 'react-router-dom'
 import { ABI,ADDRESS } from '../contract'
 import { createEventListeners } from './createEventListeners'
@@ -26,6 +26,16 @@ export const GlobalContextProvider = ({children}) => {
     const [updateGameData, setUpdateGameData] = useState(0)
     const [battleGround, setBattleGround] = useState('bg-astral')
 
+    //* Checking for battleground from local storage 
+    useEffect(() => {   
+        const battleGroundFromLocalStorage = localStorage.getItem('battleground')
+        if(battleGroundFromLocalStorage) {
+            setBattleGround(battleGroundFromLocalStorage)
+        } else {
+            localStorage.setItem('battleground', battleGround)
+        }
+
+    })
     //* Set the wallet address
     const updateCurrentWalletAddress = async () => {
         const accounts = await window?.ethereum?.request({

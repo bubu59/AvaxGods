@@ -7,6 +7,7 @@ import PlayerInfo from "./PlayerInfo";
 import ActionButton from "./ActionButton";
 import Card from "./Card";
 import GameInfo from "./GameInfo";
+import OnBoardModal from './OnboardModal'
 
 export {
     PageHOC,
@@ -17,5 +18,6 @@ export {
     PlayerInfo,
     ActionButton,
     Card,
-    GameInfo
+    GameInfo,
+    OnBoardModal
 }
