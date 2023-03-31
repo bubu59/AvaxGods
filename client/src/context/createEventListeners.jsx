@@ -41,4 +41,8 @@ export const createEventListeners = ({
         setUpdateGameData((prevUpdateGameData) => prevUpdateGameData + 1)
     })
 
-}
+    const BattleMoveEventListener = contract.filters.BattleMove()
+    addNewEvent(BattleMoveEventListener, provider, ({args}) => {
+        console.log('Battle move initiated!', args)
+    })
+}    
