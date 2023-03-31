@@ -9,11 +9,14 @@ const CreateBattle = () => {
   const {contract, battleName, setBattleName, gameData} = useGlobalContext()
   const [waitBattle, setWaitBattle] = useState(false)
 
+  //* Checks for account battleStatus
   useEffect(() => {
-    if(gameData?.activeBattle?.battleStatus === 0) {
+    if(gameData?.activeBattle?.battleStatus === 1) {
+      navigate(`/battle/${gameData.activeBattle.name}`)
+    } else if(gameData?.activeBattle?.battleStatus === 0) {
       setWaitBattle(true)
     }
-  })
+  }, [gameData])
   
   const handleClick = async () => {
     if(!battleName || !battleName.trim()) {
