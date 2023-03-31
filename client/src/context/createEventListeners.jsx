@@ -1,5 +1,9 @@
 import { ethers } from "ethers";
+import { defenseSound } from "../assets";
 import { ABI } from "../contract";
+import {playAudio, sparcle } from '../utils/animation.js'
+
+const emptyAccount = '0x0000000000000000000000000000000000000000';
 
 const addNewEvent = (eventFilter, provider, cb) => {
     provider.removeListener(eventFilter) // to ensure no multiple listeners for the same event 
@@ -9,14 +13,25 @@ const addNewEvent = (eventFilter, provider, cb) => {
     })
 }
 
+const getCoords = (cardRef) => {
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect()
+
+    return {
+        pageX: left + width /2,
+        pageY: top + height / 2.25
+    }
+}
+
 export const createEventListeners = ({ 
     navigate, 
     provider, 
     contract, 
     walletAddress, 
     setShowAlert,
-    setUpdateGameData
-}) => {
+    setUpdateGameData,
+    player01Ref,
+    player02Ref
+ }) => {
     console.log(contract)
     const NewPlayerEventFilter = contract.filters.NewPlayer()
     addNewEvent(NewPlayerEventFilter, provider, ({args}) => {
@@ -44,5 +59,24 @@ export const createEventListeners = ({
     const BattleMoveEventListener = contract.filters.BattleMove()
     addNewEvent(BattleMoveEventListener, provider, ({args}) => {
         console.log('Battle move initiated!', args)
+    })
+
+    const RoundEndedEventFilter = contract.filters.RoundEnded()
+    addNewEvent(RoundEndedEventFilter, provider, ({args}) => {
+        console.log('Round eneded initiated!', args, walletAddress)
+
+        for (let i = 0; i < args['damagedPlayers'].length; i += 1) {
+            if(args['damagedPlayers'][i] !== emptyAccount) {
+                if(args['damagedPlayers'][i] === walletAddress) {
+                    sparcle(getCoords(player01Ref))
+                } else if(args['damagedPlayers'][i] !== walletAddress) {
+                    sparcle(getCoords(player02Ref))
+                }
+            } else {
+                playAudio(defenseSound)
+            }
+        }
+
+        setUpdateGameData((prevUpdateGameData) => prevUpdateGameData + 1)
     })
 }    
