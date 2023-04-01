@@ -7,9 +7,6 @@ async function deploy(name: string, ...params: [string]) {
   }
 const _metadataUri = 'https://gateway.pinata.cloud/ipfs/https://gateway.pinata.cloud/ipfs/QmX2ubhtBPtYw75Wrpv6HLb1fhbJqxrnbhDo1RViW3oVoi';
 
-const p1Name = 'p1'
-const p1Token = 'p1Token'
-
 describe("AvaxGods tests", function() {
 
     //test for deploy contract 
@@ -32,8 +29,48 @@ describe("AvaxGods tests", function() {
         const newPlayer = await AVAXGods.getAllPlayers()
         console.log('New player successfully created!',newPlayer)
     })
-    //test for create-battle 
-    
-    //test for join-battle 
 
+    //test for create-battle 
+    it("Should create new battle", async function() {
+        const [admin, addr1] = await ethers.getSigners()
+        console.log(`Deploying a smart contract...`)
+        const AVAXGods = (await deploy('AVAXGods', _metadataUri)).connect(admin);
+
+        await AVAXGods.connect(addr1).registerPlayer('p1', 'p1Token')
+        await AVAXGods.connect(addr1).createBattle('Battle1')
+
+        const newBattle = await AVAXGods.getBattle('Battle1')
+        console.log("New battle created", newBattle)
+    })
+
+    //test for join-battle 
+    it("Should join new battle", async function() {
+        const [admin, addr1, addr2] = await ethers.getSigners()
+        console.log(`Deploying a smart contract...`)
+        const AVAXGods = (await deploy('AVAXGods', _metadataUri)).connect(admin);
+
+        await AVAXGods.connect(addr1).registerPlayer('p1', 'p1Token')
+        await AVAXGods.connect(addr2).registerPlayer('p2', 'p2Token')
+        await AVAXGods.connect(addr1).createBattle('Battle1')
+        await AVAXGods.connect(addr2).joinBattle('Battle1')
+
+        const newBattle = await AVAXGods.getBattle('Battle1')
+        console.log("New battle created", newBattle)
+    })
+
+    //test for quit-battle 
+    it("Should quit battle", async function() {
+        const [admin, addr1, addr2] = await ethers.getSigners()
+        console.log(`Deploying a smart contract...`)
+        const AVAXGods = (await deploy('AVAXGods', _metadataUri)).connect(admin);
+
+        await AVAXGods.connect(addr1).registerPlayer('p1', 'p1Token')
+        await AVAXGods.connect(addr2).registerPlayer('p2', 'p2Token')
+        await AVAXGods.connect(addr1).createBattle('Battle1')
+        await AVAXGods.connect(addr2).joinBattle('Battle1')
+        await AVAXGods.connect(addr2).quitBattle('Battle1')
+
+        const battleEnded =  await AVAXGods.getBattle('Battle1')
+        console.log("New battle created", battleEnded)
+    })
 })
