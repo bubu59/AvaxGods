@@ -1,5 +1,9 @@
 {
   "name": "hardhat-project",
+
+  "scripts" : {
+    "test": "npx hardhat@latest test"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.2",
     "hardhat": "^2.13.0"
