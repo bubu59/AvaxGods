@@ -33,7 +33,7 @@ describe("AvaxGods tests", function() {
         console.log('New player successfully created!',newPlayer)
     })
     //test for create-battle 
-
+    
     //test for join-battle 
 
 })
