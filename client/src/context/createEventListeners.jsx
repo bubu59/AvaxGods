@@ -97,7 +97,7 @@ export const createEventListeners = ({
     })
 
     const BattleEndedEventFilter = contract.filters.BattleEnded()
-    addNewEvent(RoundEndedEventFilter, provider, ({args}) => {
+    addNewEvent(BattleEndedEventFilter, provider, ({args}) => {
         console.log('Battle ended!', args, walletAddress)
         if(walletAddress.toLowerCase() === args.winner.toLowerCase()) {
             setShowAlert({

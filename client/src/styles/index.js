@@ -9,7 +9,7 @@ const styles = {
   glassEffect: 'bg-white backdrop-filter backdrop-blur-lg bg-opacity-10',
 
   // hoc page
-  hocContainer: 'min-h-screen flex xl:flex-row flex-col relative',
+  hocContainer: 'h-screen flex xl:flex-row flex-col relative overflow-y-scroll hide-scrollbar',
   hocContentBox: 'flex flex-1 justify-between bg-siteblack py-8 sm:px-12 px-8 flex-col',
   hocLogo: 'w-[160px] h-[52px] object-contain cursor-pointer',
   hocBodyWrapper: 'flex-1 flex justify-center flex-col xl:mt-0 my-16',
