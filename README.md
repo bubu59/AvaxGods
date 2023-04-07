@@ -21,8 +21,6 @@ This is a basic overview of events that take place during the lifecycle of a use
 - Mobile responsive design 
 - Enums, events, structs as well as learning to think and write smart contract in a simple and logical manner
 
-For further reference, refer to this youtube video:  <a href="https://youtu.be/C9ctoK4M9Bk/" target="blank"> https://youtu.be/C9ctoK4M9Bk
-P.s Its a long video with a lot of information so take your time to go thru it and if any errors, you can join their discord group. 
 
 ## In Progress 
 - Writing out unit tests for edge cases ( smart contract ) 
