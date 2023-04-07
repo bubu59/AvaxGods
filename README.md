@@ -8,4 +8,6 @@ Avaxgods is a multi-player game build on top of Avax testnet. The purpose of bui
 Click me to play a game: <a href="https://www.linkedin.com/in/joshua-wee-784b41151/" target="blank"> https://avaxgoddzz.netlify.app/
 
 ## Diagram
-insert obsidian diagram 
+This is a basic overview of events that take place during the lifecycle of a user's journey playing this game. 
+
+<img width="1198" alt="Screenshot 2023-04-07 at 6 34 03 PM" src="https://user-images.githubusercontent.com/74093051/230594366-8ec1e760-0837-4d4d-a0f2-fcbb08ccdae8.png">
