@@ -22,8 +22,6 @@ This is a basic overview of events that take place during the lifecycle of a use
 - Enums, events, structs as well as learning to think and write smart contract in a simple and logical manner
 
 
-## In Progress 
-- Writing out unit tests for edge cases ( smart contract ) 
-- Learning how to use CI/CD for deployment 
+
 
 
